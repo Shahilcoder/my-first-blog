@@ -1,40 +1,12 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Sahil's first webapp</title>
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-		<link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-		<link rel="stylesheet" href="{% static 'css/blog.css' %}">
-	</head>
-	<body>
-		<!--<marquee><h1>Shahil's Pylovers Blog</h1></marquee>
-		<strong>
-			<br>
-			<br>
-			<a href="https://github.com/Shahilsky/my-first-blog">
-				click here! to view the source code!!
-			</a>
-		</strong>-->
-
-		<div class="page-header">
-    		<h1><a href="/">~TreeNo.56~</a></h1>
-		</div>
-		<div class="content container">
-    		<div class="row">
-        		<div class="col-md-8">
-            		{% for post in posts %}
-                		<div class="post">
-                    		<div class="date">
-                        		<p>published: {{ post.published_date }}</p>
-                    		</div>
-                    		<h1><a href="">{{ post.title }}</a></h1>
-                    		<p>{{ post.text|linebreaksbr }}</p>
-                		</div>
-            		{% endfor %}
-        		</div>
-    		</div>
-		</div>
-	</body>
-</html>
+{% extends 'blog/base.html' %}
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <p>{{ post.text|linebreaksbr }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
